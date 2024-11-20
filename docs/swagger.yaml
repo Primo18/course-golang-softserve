@@ -1,0 +1,139 @@
+basePath: /
+definitions:
+  todos.Todo:
+    properties:
+      completed:
+        type: boolean
+      id:
+        type: integer
+      title:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: API para gestionar TODOs
+  title: TODO API
+  version: "1.0"
+paths:
+  /:
+    get:
+      consumes:
+      - application/json
+      description: Muestra la página de bienvenida
+      produces:
+      - text/html
+      responses:
+        "200":
+          description: Página de bienvenida
+          schema:
+            type: string
+      summary: Bienvenida
+      tags:
+      - general
+  /todos:
+    get:
+      consumes:
+      - application/json
+      description: Obtiene la lista de todos los TODOs
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Lista de TODOs
+          schema:
+            items:
+              $ref: '#/definitions/todos.Todo'
+            type: array
+      summary: Listar TODOs
+      tags:
+      - todos
+    post:
+      consumes:
+      - application/json
+      description: Crea un nuevo TODO
+      parameters:
+      - description: Datos del TODO
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/todos.Todo'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: TODO creado
+          schema:
+            $ref: '#/definitions/todos.Todo'
+        "400":
+          description: Error en la solicitud
+          schema:
+            type: string
+      summary: Crear TODO
+      tags:
+      - todos
+  /todos/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Obtiene un TODO por su ID
+      parameters:
+      - description: ID del TODO
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: TODO encontrado
+          schema:
+            $ref: '#/definitions/todos.Todo'
+        "400":
+          description: ID inválido
+          schema:
+            type: string
+        "404":
+          description: TODO no encontrado
+          schema:
+            type: string
+      summary: Obtener TODO
+      tags:
+      - todos
+    put:
+      consumes:
+      - application/json
+      description: Actualiza un TODO existente por su ID
+      parameters:
+      - description: ID del TODO
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Datos actualizados del TODO
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/todos.Todo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: TODO actualizado
+          schema:
+            $ref: '#/definitions/todos.Todo'
+        "400":
+          description: Error en la solicitud
+          schema:
+            type: string
+        "404":
+          description: TODO no encontrado
+          schema:
+            type: string
+      summary: Actualizar TODO
+      tags:
+      - todos
+swagger: "2.0"

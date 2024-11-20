@@ -1,0 +1,18 @@
+# Archivos binarios
+*.exe
+*.out
+*.test
+
+# Archivos de caché y compilación
+*.o
+*.a
+*.so
+
+# Dependencias descargadas
+vendor/
+
+# Archivos generados por IDEs o herramientas
+.vscode/
+.idea/
+*.swp
+.DS_Store
